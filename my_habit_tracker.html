@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Habit Tracker — Complete Edition</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="my_habit_tracker.css" />
+</head>
+<body>
+  <main class="card">
+    <div class="header-row">
+      <div>
+        <h1>My Habit Tracker</h1>
+        <p id="progress" class="progress-text">0 of 16 weekly goal check-ins (0%)</p>
+      </div>
+      <div class="header-actions">
+        <button id="sound-toggle-btn" type="button" class="secondary-btn"><span class="button-icon" aria-hidden="true">♫</span><span class="button-label">Sound On</span></button>
+        <button id="theme-toggle-btn" type="button" class="secondary-btn"><span class="button-icon" aria-hidden="true">☾</span><span class="button-label">Dark</span></button>
+        <button id="import-btn" type="button" class="secondary-btn"><span class="button-icon" aria-hidden="true">↓</span><span class="button-label">Import</span></button>
+        <button id="export-btn" type="button" class="secondary-btn"><span class="button-icon" aria-hidden="true">↑</span><span class="button-label">Export</span></button>
+        <button id="reset-week-btn" type="button" class="secondary-btn"><span class="button-icon" aria-hidden="true">↻</span><span class="button-label">Reset Week</span></button>
+        <input id="import-file-input" type="file" accept=".json,application/json" class="hidden-file-input" />
+      </div>
+    </div>
+
+    <div class="progress-bar-track" aria-hidden="true">
+      <div id="progress-bar-fill" class="progress-bar-fill"></div>
+    </div>
+
+    <div class="summary-grid" aria-label="Weekly summary">
+      <div class="summary-box">
+        <span id="summary-goals" class="summary-value">0 / 3</span>
+        <span class="summary-label">Goals Met</span>
+      </div>
+      <div class="summary-box">
+        <span id="summary-streak" class="summary-value">0 days</span>
+        <span class="summary-label">Best Streak</span>
+      </div>
+      <div class="summary-box">
+        <span id="summary-checkins" class="summary-value">0</span>
+        <span class="summary-label">Total Check-ins</span>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <p id="chart-title" class="chart-title">Check-ins by Day (Today: Mon)</p>
+      <div class="chart-wrap">
+        <canvas id="weekly-chart" aria-label="Weekly check-ins bar chart"></canvas>
+      </div>
+    </div>
+
+    <form id="habit-form" class="input-row">
+      <input
+        id="habit-input"
+        type="text"
+        placeholder="Add a new habit..."
+        autocomplete="off"
+      />
+      <select id="habit-category" aria-label="Habit category">
+        <option value="Health">Health</option>
+        <option value="Learning">Learning</option>
+        <option value="Personal">Personal</option>
+        <option value="Focus">Focus</option>
+      </select>
+      <select id="habit-goal" aria-label="Weekly goal days">
+        <option value="7">7 days/wk</option>
+        <option value="6">6 days/wk</option>
+        <option value="5">5 days/wk</option>
+        <option value="4">4 days/wk</option>
+        <option value="3">3 days/wk</option>
+        <option value="2">2 days/wk</option>
+        <option value="1">1 day/wk</option>
+      </select>
+      <button type="submit">Add</button>
+    </form>
+
+    <div class="controls-row">
+      <input
+        id="search-input"
+        type="search"
+        class="search-input"
+        placeholder="Search habits or notes..."
+        aria-label="Search habits or notes"
+      />
+      <button id="check-all-today-btn" type="button" class="today-action-btn">Check All Today</button>
+    </div>
+
+    <div id="filter-row" class="filter-row"></div>
+
+    <ul id="habit-list" class="habit-list"></ul>
+
+    <section class="reflection-card" aria-label="Weekly reflection">
+      <div class="reflection-header">
+        <h2 class="reflection-title">Weekly Reflection</h2>
+        <span id="reflection-status" class="reflection-status">Saved automatically</span>
+      </div>
+      <textarea
+        id="reflection-input"
+        class="reflection-textarea"
+        placeholder="How did this week go? Jot down a win or something to adjust next week..."
+        aria-label="Weekly reflection note"
+      ></textarea>
+    </section>
+
+    <p class="shortcuts-hint">
+      Shortcuts: <kbd>/</kbd> search · <kbd>n</kbd> new habit · <kbd>d</kbd> dark mode
+    </p>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </main>
+
+  <script src="my_habit_tracker.js"></script>
+</body>
+</html>
